@@ -1,6 +1,6 @@
 import sys
 # sys нужен для передачи argv в QApplication
-from test import * # Импортируем наш интерфейс
+from gui_EH import * # Импортируем наш интерфейс
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyPDF2 import PdfFileReader
 import tabula
