@@ -11,11 +11,14 @@ from PyPDF2 import PdfFileReader
 import tabula # пакет tabula-py для обработки формата PDF
 
 class MyWin(QtWidgets.QMainWindow):
-    ''' Класс MyWin объединяет главный файл с интерфейсом.
+    ''' 
+    Класс MyWin объединяет главный файл с интерфейсом.
     Так как файл с дизайном будет полностью перезаписываться
-    каждый раз при изменении дизайна, мы не будем изменять его '''
+    каждый раз при изменении дизайна, мы не будем изменять его 
+    __init__: модуль для доступа к переменным, методам в пакете gui_EH.py
+    DomainCheck: модуль взимодействия с логикой конвертатора
+    '''
     def __init__(self, parent=None):
-        ''' модуль для доступа к переменным, методам в пакете gui_EH.py '''
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self) # инициализации дизайна из пакета gui_EH
