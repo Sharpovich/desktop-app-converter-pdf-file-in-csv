@@ -1,40 +1,45 @@
+'''
+Настольное приложение для конвертации данных из файла
+формата PDF, в файл формата CSV
+(C) 2019
+'''
+
+''' sys нужен для передачи argv в QApplication '''
 import sys
-# sys нужен для передачи argv в QApplication
-from gui_EH import * # Импортируем наш интерфейс
+''' import gui_EH импортирует наш интерфейс '''
+from gui_EH import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyPDF2 import PdfFileReader
+''' пакет tabula-py для обработки формата PDF '''
 import tabula
 
-# Так как файл с дизайном будет полностью перезаписываться
-# каждый раз при изменении дизайна, мы не будем изменять его.
-# Вместо этого мы создадим новый класс MyWin,
-# который объединим с кодом дизайна для использования
-# всех его функций: #
 class MyWin(QtWidgets.QMainWindow):
+    ''' Класс MyWin объединяет главный файл с интерфейсом.
+    Так как файл с дизайном будет полностью перезаписываться
+    каждый раз при изменении дизайна, мы не будем изменять его '''
     def __init__(self, parent=None):
-        # Это здесь нужно для доступа к переменным, методам
-        # и т.д. в файле test.py
+        ''' модуль для доступа к переменным, методам в пакете gui_EH.py '''
         QtWidgets.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
-        self.ui.setupUi(self) # Это нужно для инициализации нашего дизайна
-# В этом классе мы будем взаимодействовать с элементами интерфейса,
-# добавлять соединения и всё остальное, что нам потребуется.
-# Но для начала нам нужно инициализировать класс при запуске кода.
-# С этим мы разберёмся в функции main():
-        # Здесь прописываем событие нажатия на кнопку
+        ''' инициализации дизайна из пакета gui_EH '''
+        self.ui.setupUi(self)
+        ''' событие нажатия на кнопку '''
         self.ui.pushButton.clicked.connect(self.DomainCheck)
 
-        # при нажатии на кнопку
+    ''' логика события взаимодействия с pushButton '''
     def DomainCheck(self):
-        while True: # цикл исполнения
-            try: # условие
+        while True:
+            try:
+                ''' создание диалогового окна для ввода пользователем '''
                 str_, btn = QtWidgets.QInputDialog.getText(self, 'Ввод', 'Файл PDF:',
-                                                           text='')  # создание диалогового окна для ввода пользователем
+                                                           text='')
                 if btn:
                     x = str_
-                if btn == False: # выставляется флаг False при нажатии на close() и закрывается программа
+                ''' выставляется флаг False при нажатии на close() и закрывается программа '''
+                if btn == False:
                     break
-                with open(str(x) + '.pdf', 'rb') as f: # подсчёт количества страниц в файле
+                ''' подсчёт количества страниц в файле '''
+                with open(str(x) + '.pdf', 'rb') as f:
                     pdf = PdfFileReader(f)
                     number_of_pages = pdf.getNumPages()
 
@@ -42,16 +47,20 @@ class MyWin(QtWidgets.QMainWindow):
                     n = number_of_pages - 2
                 else:
                     n = number_of_pages - 1
-                # Алгоритм табулы. main
+                ''' Алгоритм моделя из пакета Tabula-py '''
                 pageses = '1-' + str(n)
                 tabula.convert_into(str(x) + '.pdf', 'Equipment.csv', output_format="csv", pages=pageses)
-            except: # обработка исключений
+            except:
                 continue
             else:
                 break
 
 if __name__=="__main__":
-    app = QtWidgets.QApplication(sys.argv) # Новый экземпляр QApplication
-    myapp = MyWin() # Создаём объект класса MyWin
-    myapp.show() # Показываем окно
-    sys.exit(app.exec_()) # и запускаем приложение
+    ''' Новый экземпляр QApplication '''
+    app = QtWidgets.QApplication(sys.argv)
+    ''' Создаём объект класса MyWin '''
+    myapp = MyWin()
+    ''' Показываем окно '''
+    myapp.show()
+    ''' и запускаем приложение '''
+    sys.exit(app.exec_())
