@@ -25,7 +25,11 @@ class MyWin(QtWidgets.QMainWindow):
         self.ui.pushButton.clicked.connect(self.DomainCheck) # событие нажатия на кнопку
         
     def DomainCheck(self):
-        ''' логика события взаимодействия с pushButton '''
+        '''
+        Модуль DomainCheck служит для взаимодействия основного алгоритма конвертации с интерфейсом
+        кнопки инициализации
+        convert_into(): Алгоритм модуля из пакета Tabula-py
+        '''
         while True:
             try:
                 # создание диалогового окна для ввода пользователем
@@ -46,8 +50,7 @@ class MyWin(QtWidgets.QMainWindow):
                 else:
                     n = number_of_pages - 1
                 pageses = '1-' + str(n)
-                # Алгоритм моделя из пакета Tabula-py
-                tabula.convert_into(str(x) + '.pdf', 'Equipment.csv', output_format="csv", pages=pageses)
+                convert_into(str(x) + '.pdf', 'Equipment.csv', output_format="csv", pages=pageses)
             except:
                 continue
             else:
