@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("Equipment_Convert")
         MainWindow.resize(977, 490)
-        MainWindow.move(58,50)
+        MainWindow.move(58, 50)
         MainWindow.setMaximumSize(QtCore.QSize(977, 490))
         MainWindow.setMinimumSize(QtCore.QSize(977, 490))
         MainWindow.setStyleSheet("background-color: rgb(195, 195, 195);")
@@ -71,10 +72,8 @@ class Ui_MainWindow(object):
         self.action_2.setObjectName("action_2")
         self.menubar.addAction(self.menu.menuAction())
 
-
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -106,6 +105,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
